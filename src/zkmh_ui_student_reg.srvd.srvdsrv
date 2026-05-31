@@ -1,0 +1,4 @@
+@EndUserText.label: 'service definition student details'
+define service ZKMH_UI_STUDENT_REG {
+  expose ZKMH_c_STUDENT_REG as Student;
+}

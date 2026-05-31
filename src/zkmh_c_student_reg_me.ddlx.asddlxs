@@ -1,0 +1,82 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+    typeName: 'Student',
+    typeNamePlural: 'Students',
+    title: {
+        type: #STANDARD,
+        label: 'Student Name',
+        value: 'StudentName'
+    }}
+@Search.searchable: true
+annotate entity ZKMH_c_STUDENT_REG with
+{
+  @UI.facet:[ { id: 'StudentID',purpose: #STANDARD,type: #IDENTIFICATION_REFERENCE ,
+                label: 'Student Information', position: 10 } ]
+  
+  @UI.hidden: true
+  Studentuuid;
+  @UI : { lineItem: [{ position: 10 ,label: 'Registration Number'}],
+          identification: [{ position: 10 ,label: 'Registration Number' }] }
+  Registrationnumber;
+  @UI : { lineItem: [{ position: 20 , label:'Student Name' }],
+          identification: [{ position: 20, label:'Student Name' }] }
+  @EndUserText.label: 'Student Name'
+  @Search.defaultSearchElement: true
+  StudentName;
+  @UI.identification: [{ position: 30 , label:'Email Address'}]
+  @Search.defaultSearchElement: true
+  EmailAddress;
+  @UI : { identification: [{ position: 40, label:'Mobile Number' }] }
+  MobileNumber;
+  @UI.identification: [{ position: 50 , label:'Address'}]
+  Address;
+  @UI.identification: [{ position: 60 , label:'City'}]
+  City;
+  @UI : { lineItem: [{ position: 30 , label:'Batch Name'}],
+          identification: [{ position: 70 , label:'Batch Name'}],
+          selectionField: [{ position : 10 }] }
+  BatchName;
+  @UI : { lineItem: [{ position: 40 }],
+          identification: [{ position: 80, label:'Course Name' }],
+          selectionField: [{ position : 20 }] }
+  CourseName;
+  @UI : { identification: [{ position: 90 , label:'Registration Date'}] }
+  RegistrationDate;
+  @UI.identification: [{ position: 100 , label:'Total Course Fee'}]
+  TotalFees;
+  @UI.identification: [{ position: 110 , label:'Discount %'}]
+  DiscountPercentage;
+  @UI.identification: [{ position: 120 , label:'Discount Amount'}]
+  DiscountAmount;
+  @UI : { lineItem: [{ position: 50 }],
+          identification: [{ position: 130 , label:'Net Fee payable'}] }
+  NetFeePayable;
+  @UI : { lineItem: [{ position: 60 }],
+          identification: [{ position: 140 , label:'Amount Paid'}] }
+  AmountPaid;
+  @UI.identification: [{ position: 150 , label:'Balance Amount'}]
+  BalanceAmount;
+  @UI.hidden: true
+  CurrencyCode;
+  @UI : { lineItem: [{ position: 70 , label:'Payment Status'}],
+          identification: [{ position: 160, label:'Payment Status' }],
+          selectionField: [{ position: 30 }]}
+  PaymentStatus;
+  @UI : { lineItem: [{ position: 80 , label:'Student Status'}],
+          identification: [{ position: 170 , label:'Student Status'},
+                           { type: #FOR_ACTION,dataAction: 'placeOnHold' ,label :'Place on Hold'}],
+          selectionField: [{ position: 40 }] }
+  StudentStatus;
+  @UI.identification: [{ position: 180 , label:'Remarks'}]
+  Remarks;
+  @UI.hidden: true
+  CreatedBy;
+  @UI.hidden: true
+  CreatedAt;
+  @UI.hidden: true
+  LastChangedBy;
+  @UI.hidden: true
+  LastChangedAt;
+  @UI.hidden: true
+  LocalLastChangedAt;
+}

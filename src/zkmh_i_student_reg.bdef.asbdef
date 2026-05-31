@@ -1,0 +1,76 @@
+managed implementation in class zbp_kmh_i_student_reg unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZKMH_I_STUDENT_REG alias Student
+persistent table zkmh_student_reg
+draft table zkmh_stud_tr_d
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  //UUID managed by RAP FrameWork
+  field ( numbering : managed, readonly ) Studentuuid;
+
+  //fields the user is never allowed to type into manually
+  field ( readonly ) Registrationnumber, RegistrationDate, DiscountAmount, NetFeePayable,BalanceAmount;
+
+  //Fields the user must fill out
+  field ( mandatory ) StudentName, EmailAddress, MobileNumber, BatchName, CourseName, TotalFees;
+
+  //The three Business Actions( Activate/onhold/Complete )
+  action markAsActive    result [1] $self;
+  action placeOnHold     result [1] $self;
+  action markAsCompleted result [1] $self;
+
+  //Determinations ( Automatic Calculations )
+  determination setInitialDefaults on save   { create; }
+  determination calculateFees      on modify { field TotalFees, DiscountPercentage, AmountPaid; }
+
+  //validatoins ( Error Checking )
+  validation validateEmail      on save { field EmailAddress; create; update; }
+  validation validateMobile     on save { field EmailAddress; create; update; }
+  validation validateDiscount   on save { field EmailAddress; create; update; }
+  validation validateAmountPaid on save { field EmailAddress; create; update; }
+  validation validateTotalFees  on save { field EmailAddress; create; update; }
+
+  //Map the CDS fields to the database fields
+  mapping for zkmh_student_reg
+    {
+      Studentuuid        = student_uuid;
+      Registrationnumber = registration_number;
+      StudentName        = student_name;
+      EmailAddress       = email_address;
+      MobileNumber       = mobile_number;
+      Address            = address;
+      City               = city;
+      BatchName          = batch_name;
+      CourseName         = course_name;
+      RegistrationDate   = registration_date;
+      TotalFees          = total_fees;
+      DiscountPercentage = discount_percentage;
+      DiscountAmount     = discount_amount;
+      NetFeePayable      = net_fee_payable;
+      AmountPaid         = amount_paid;
+      BalanceAmount      = balance_amount;
+      CurrencyCode       = currency_code;
+      PaymentStatus      = payment_status;
+      StudentStatus      = student_status;
+      Remarks            = remarks;
+      CreatedBy          = created_by;
+      CreatedAt          = created_at;
+      LastChangedBy      = last_changed_by;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}

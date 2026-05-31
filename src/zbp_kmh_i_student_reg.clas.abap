@@ -1,0 +1,5 @@
+CLASS zbp_kmh_i_student_reg DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zkmh_i_student_reg.
+ENDCLASS.
+
+CLASS zbp_kmh_i_student_reg IMPLEMENTATION.
+ENDCLASS.
